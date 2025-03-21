@@ -1,0 +1,1 @@
+Unfortunately, support for our beloved game has nearly ceased. The game's reporting system is in a dire state, and disruptive players are not being appropriately penalized. Therefore, I've developed a service to help you discern between friendly and hostile players.
