@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BL-HOTS</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+#results {
+  margin-top: 20px;
+}
+
+.item {
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+  </style>
+</head>
+<body>
+  <h1>the most reliable teammates /about cotacts/ region /</h1>
+
+  <!-- Поле для пошуку -->
+  <input type="text" id="searchInput" placeholder="Введіть слово для пошуку...">
+
+  <!-- Результати пошуку -->
+  <div id="results"></div>
+
+  <script >
+  // Великий масив об'єктів
+const data = [
+  { name: "Ari", age: 23, info: "Любить читати книги" },
+  { name: "Tey", age: 43, info: "Захоплюється спортом" },
+  { name: "John", age: 30, info: "Програміст" },
+  { name: "Anna", age: 25, info: "Дизайнер" },
+  { name: "Mike", age: 35, info: "Музикант" },
+  { name: "Sara", age: 28, info: "Вчитель" },
+  { name: "Alex", age: 40, info: "Підприємець" },
+  { name: "Eva", age: 22, info: "Студентка" },
+];
+
+// Елементи DOM
+const searchInput = document.getElementById("searchInput");
+const resultsDiv = document.getElementById("results");
+
+// Функція для пошуку
+function search(query) {
+  // Очистити попередні результати
+  resultsDiv.innerHTML = "";
+
+  // Якщо поле пошуку порожнє, нічого не робити
+  if (!query) return;
+
+  // Перетворити запит на нижній регістр для порівняння
+  const lowerCaseQuery = query.toLowerCase();
+
+  // Фільтрувати масив
+  const filteredData = data.filter((item) => {
+    return (
+      item.name.toLowerCase().includes(lowerCaseQuery) || // Пошук по name
+      item.age.toString().includes(lowerCaseQuery) // Пошук по age
+    );
+  });
+
+  // Відобразити результати
+  if (filteredData.length > 0) {
+    filteredData.forEach((item) => {
+      const itemDiv = document.createElement("div");
+      itemDiv.className = "item";
+      itemDiv.innerHTML = `
+        <strong>Ім'я:</strong> ${item.name}<br>
+        <strong>Вік:</strong> ${item.age}<br>
+        <strong>Інформація:</strong> ${item.info}
+      `;
+      resultsDiv.appendChild(itemDiv);
+    });
+  } else {
+    resultsDiv.innerHTML = "<div>Нічого не знайдено.</div>";
+  }
+}
+
+// Слухач події для поля введення
+searchInput.addEventListener("input", (event) => {
+  const query = event.target.value.trim();
+  search(query);
+});
+  </script>
+</body>
+</html>
