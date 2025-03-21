@@ -15,28 +15,24 @@
       height: 100vh;
       text-align: center;
     }
-    /* .container {
-      width: 90%;
-      max-width: 600px;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    } */
     #searchInput {
       width: 60%;
       padding: 10px;
       font-size: 16px;
       margin-bottom: 20px;
-      border-radius: 10px;
+      border-radius: 8px;
       border: solid 1px #27daff;
     }
     #results { margin-top: 20px; }
     .item {
-      padding: 10px;
-      border: 1px solid #ccc;
-      margin-bottom: 10px;
-      border-radius: 5px;
+        background: #1588ee;
+        padding: 10px;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        color: white;
+        font-family: monospace;
+        font-size: larger;
     }
     .radial4 {
       background: radial-gradient(circle, #b977f3, #6c28f5);
@@ -65,23 +61,62 @@
     </div>
     <div class="text-example neon-shadow1"><h4 style="color: white; margin: 0px;">BLACKLIST</h4> </div>
 
-    <h3> the most reliable teammates / about contacts / region /</h3>
-    <input type="text" id="searchInput" placeholder="Nickname or battletag">
+    <!-- <h3>  about contacts / region /</h3> -->
+<div style="
+    height: 130px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 25px;
+    align-items: center;
+">
+    <div class="dropdown-container">
+      <div class="dropdown-text">About & Contacts</div>
+      <div class="dropdown-content">
+          <h4>Non official fan-service BL-HOTS</h4>
+          Hey everyone,
+          Sadly, our favorite game isn’t getting the support it deserves anymore. 
+          The reporting system is pretty much broken, and toxic players are running wild with no real consequences.
+           That’s why I put together this service to help you figure out who’s a solid teammate and who’s best avoided.
+          If you’ve got a clip showing an "awesome", "reliable" player, send it over along with their nickname. 
+          Let’s build a better community together!. Email: avanti.dev.pro@gmail.com . Ukraine 2025
+      </div>
+    </div>
+
+    <div style=" width: 100%;">
+      <input type="text" id="searchInput" placeholder="Nickname or battletag">
+    </div>
+</div>
+
     <div id="results"></div>
   </div>
   <script>
     const data = [
-      { name: "Ari", btag: 23, info: "Любить читати книги" },
-      { name: "Tey", btag: 43, info: "Захоплюється спортом" },
-      { name: "John", btag: 30, info: "Програміст" },
-      { name: "Anna", btag: 25, info: "Дизайнер" },
-
       { name: "QuinLanVos", btag: '#21473', info: "Ruine game" },
       { name: "Seraphiel", btag: '#21826', info: "Ruine game" },
       { name: "Wit", btag: '#none', info: "Ruine game" },
+      { name: "Lack ", btag: '#21469', info: "Ruine game" },
       { name: "Lamber", btag: '#none', info: "Ruine game, sabotage" },
       { name: "Embling", btag: '#2601', info: "Ruine game, sabotage" },
+      { name: "AvelNaitroud", btag: '#2515', info: "Ruine game, sabotage, flood" },
+      { name: "MaryLy", btag: '#21384', info: "Ruine game, sabotage, flood" },
+      { name: "jurasek", btag: '#2477', info: "Ruine game, sabotage, flood" },
+      { name: "nuncho02", btag: '#2511', info: "Ruine game, sabotage, flood" },
+      { name: "GianlukaKR", btag: '#2267', info: "Ruine game, sabotage, flood" },
+      { name: "ДикийЗверь", btag: '#27212', info: "Ruine game, sabotage, flood" },
+      { name: "Heifeng", btag: '#2504', info: "Ruine game, sabotage, flood" },
+      { name: "Bratsel/Bretsel", btag: '#none', info: "top gnida" },
+      { name: "Boxter / Bexter", btag: '#none', info: "top gnida" },
+      { name: "Spike", btag: '#2923', info: "top gnida" },
+      { name: "СнежныйБарс", btag: '#21485', info: "Ruine game, sabotage, flood" },
+      { name: "PIHA", btag: '#21834', info: "Ruine game, sabotage, flood" },
+      { name: "Cristi", btag: '#2142', info: "Ruine game, sabotage, flood" },
+      { name: "player", btag: '#223258', info: "Ruine game, sabotage, flood" },
+      { name: "Shaded ", btag: '#21409', info: "Ruine game, sabotage, flood" },
+
       { name: "Nadweek", btag: '#2601', info: "лох, чмо, підар, ігнорщик. має достойний скіл" },
+      { name: "avantipro", btag: '#2621', info: "founder bl-hots" },
+
     ];
     const searchInput = document.getElementById("searchInput");
     const resultsDiv = document.getElementById("results");
@@ -106,13 +141,13 @@
           itemDiv.className = "item";
           itemDiv.innerHTML = `
             <strong>Name: </strong> ${item.name} / 
-            <strong>BattleTag: </strong> ${item.btag}<br>
+            <strong>BattleTag: </strong> ${item.btag}<br><br>
             <strong>Info: </strong> ${item.info}
           `;
           resultsDiv.appendChild(itemDiv);
         });
       } else {
-        resultsDiv.innerHTML = "<div>Нічого не знайдено.</div>";
+        resultsDiv.innerHTML = "<div>Not Found</div>";
       }
     }
     searchInput.addEventListener("input", (event) => {
