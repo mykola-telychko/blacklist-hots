@@ -1,1 +1,6 @@
-Unfortunately, support for our beloved game has nearly ceased. The game's reporting system is in a dire state, and disruptive players are not being appropriately penalized. Therefore, I've developed a service to help you discern between friendly and hostile players.
+Non official fan-service BL-HOTS
+
+Unfortunately, support for our beloved game has nearly ceased. The game's reporting system is in a dire state,
+and disruptive players are not being appropriately penalized. Therefore, I've developed a service to help you 
+discern between friendly and hostile players. To help other players recognize the "most reliable" teammates, 
+please submit a brief video and your nickname to us.

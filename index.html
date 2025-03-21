@@ -7,27 +7,29 @@
   <link rel="stylesheet" href="styles.css">
   <style>
     body {
-      font-family: Arial, sans-serif;
+      /* font-family: Arial, sans-serif; */
       margin: 0;
       display: flex;
       justify-content: center;
-      align-items: center;
+      /* align-items: center; */
       height: 100vh;
       text-align: center;
     }
-    .container {
+    /* .container {
       width: 90%;
       max-width: 600px;
       background: white;
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
+    } */
     #searchInput {
       width: 60%;
       padding: 10px;
       font-size: 16px;
       margin-bottom: 20px;
+      border-radius: 10px;
+      border: solid 1px #27daff;
     }
     #results { margin-top: 20px; }
     .item {
@@ -47,34 +49,39 @@
       font-size: 48px;
       font-weight: bold;
       color: #fff;
-      margin: 20px 0;
-      padding: 20px;
-      background: #333;
+      /* margin: 20px 0; */
+      /* padding: 20px; */
+      /* background: #333; */
       border-radius: 10px;
-      display: inline-block;
+      /* display: inline-block; */
     }
   </style>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body class="radial4">
-  <!-- <div class="container"> -->
   <div>
-    <div class="text-example neon-shadow1"><h4 style="color: white;">BLACKLIST</h4> </div>
-
     <div class="image-container">
       <img src="hots.png" alt="608x286 Placeholder Image">
     </div>
+    <div class="text-example neon-shadow1"><h4 style="color: white; margin: 0px;">BLACKLIST</h4> </div>
+
     <h3> the most reliable teammates / about contacts / region /</h3>
     <input type="text" id="searchInput" placeholder="Nickname or battletag">
     <div id="results"></div>
   </div>
   <script>
     const data = [
-      { name: "Ari", age: 23, info: "Любить читати книги" },
-      { name: "Tey", age: 43, info: "Захоплюється спортом" },
-      { name: "John", age: 30, info: "Програміст" },
-      { name: "Anna", age: 25, info: "Дизайнер" },
-      { name: "Mike", age: 35, info: "Музикант" },
+      { name: "Ari", btag: 23, info: "Любить читати книги" },
+      { name: "Tey", btag: 43, info: "Захоплюється спортом" },
+      { name: "John", btag: 30, info: "Програміст" },
+      { name: "Anna", btag: 25, info: "Дизайнер" },
+
+      { name: "QuinLanVos", btag: '#21473', info: "Ruine game" },
+      { name: "Seraphiel", btag: '#21826', info: "Ruine game" },
+      { name: "Wit", btag: '#none', info: "Ruine game" },
+      { name: "Lamber", btag: '#none', info: "Ruine game, sabotage" },
+      { name: "Embling", btag: '#2601', info: "Ruine game, sabotage" },
+      { name: "Nadweek", btag: '#2601', info: "лох, чмо, підар, ігнорщик. має достойний скіл" },
     ];
     const searchInput = document.getElementById("searchInput");
     const resultsDiv = document.getElementById("results");
@@ -84,9 +91,13 @@
       if (!query) return;
       const lowerCaseQuery = query.toLowerCase();
       const filteredData = data.filter((item) => {
+        // return (
+        //   item.name.toLowerCase().includes(lowerCaseQuery) || 
+        //   item.age.toString().includes(lowerCaseQuery)
+        // );
         return (
           item.name.toLowerCase().includes(lowerCaseQuery) || 
-          item.age.toString().includes(lowerCaseQuery)
+          item.btag.toString().includes(lowerCaseQuery)
         );
       });
       if (filteredData.length > 0) {
@@ -94,9 +105,9 @@
           const itemDiv = document.createElement("div");
           itemDiv.className = "item";
           itemDiv.innerHTML = `
-            <strong>Ім'я:</strong> ${item.name}<br>
-            <strong>Вік:</strong> ${item.age}<br>
-            <strong>Інформація:</strong> ${item.info}
+            <strong>Name: </strong> ${item.name} / 
+            <strong>BattleTag: </strong> ${item.btag}<br>
+            <strong>Info: </strong> ${item.info}
           `;
           resultsDiv.appendChild(itemDiv);
         });
