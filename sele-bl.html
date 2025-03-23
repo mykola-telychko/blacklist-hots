@@ -15,7 +15,7 @@
 .select-selected {
   background-color: DodgerBlue;
   border: 2px solid red;
-  border-radius: 0px 10px 10px 0px;
+  border-radius: 0px 8px 8px 0px;
 }
 /*style the arrow inside the select element:*/
 .select-selected:after {
@@ -52,9 +52,7 @@
   z-index: 99;
 }
 /*hide the items when the select box is closed:*/
-.select-hide {
-  display: none;
-}
+.select-hide { display: none; }
 .select-items div:hover, .same-as-selected {
   background-color: rgba(0, 0, 0, 0.1);
 }
@@ -65,9 +63,8 @@
 <body>
 <!--surround the select box with a "custom-select" DIV element. Remember to set the width:-->
 <div class="custom-select" style="width:110px; ">
-
-  <select style=" border: 2px solid red; border-radius: 0px 10px 10px 0px;">
-    <option value="0" style=" border: 2px solid red; border-radius: 0px 10px 10px 0px;">Region:</option>
+  <select  id="regionSelect" style=" border: 2px solid red; ">
+    <option value="0">Region:</option>
     <option value="1">Europe</option>
     <option value="2">USA</option>
     <option value="3">Asia</option>
@@ -76,6 +73,44 @@
 </div>
 
 <script>
+console.log(22);
+
+document.getElementById("regionSelect").addEventListener("change", function() {
+      console.log("Selected:", this.value);
+});
+
+function handleRegionChange(selectElement) {
+      const selectedValue = selectElement.value;
+      const selectedText = selectElement.options[selectElement.selectedIndex].text;
+      const resultDiv = document.getElementById('result');
+      // Hide result if default option is selected
+      if (selectedValue === "0") {
+        resultDiv.style.display = 'none';
+        return;
+      }
+      // Display the selection
+      // resultDiv.innerHTML = `You selected: <strong>${selectedText}</strong> (Value: ${selectedValue})`;
+      // resultDiv.style.display = 'block';
+      
+      // You can add additional logic here based on the selected value
+      switch(selectedValue) {
+        case "1":
+          console.log("Europe selected - loading European data...");
+          break;
+        case "2":
+          console.log("USA selected - loading US data...");
+          break;
+        case "3":
+          console.log("Asia selected - loading Asian data...");
+          break;
+        case "4":
+          console.log("All regions selected - loading global data...");
+          break;
+      }
+}
+
+
+
 var x, i, j, l, ll, selElmnt, a, b, c;
 /*look for any elements with the class "custom-select":*/
 x = document.getElementsByClassName("custom-select");
@@ -137,14 +172,10 @@ function closeAllSelect(elmnt) {
   for (i = 0; i < yl; i++) {
     if (elmnt == y[i]) {
       arrNo.push(i)
-    } else {
-      y[i].classList.remove("select-arrow-active");
-    }
+    } else { y[i].classList.remove("select-arrow-active"); }
   }
   for (i = 0; i < xl; i++) {
-    if (arrNo.indexOf(i)) {
-      x[i].classList.add("select-hide");
-    }
+    if (arrNo.indexOf(i)) { x[i].classList.add("select-hide"); }
   }
 }
 document.addEventListener("click", closeAllSelect);

@@ -79,7 +79,7 @@
           The reporting system is pretty much broken, and toxic players are running wild with no real consequences.
            That’s why I put together this service to help you figure out who’s a solid teammate and who’s best avoided.
           If you’ve got a clip showing an "awesome", "reliable" player, send it over along with their nickname. 
-          Let’s build a better community together!. Email: avanti.dev.pro@gmail.com . Ukraine 2025
+          Let’s build a better community together! Email: avanti.dev.pro@gmail.com . Ukraine 2025
       </div>
     </div>
 
@@ -91,7 +91,7 @@
     <div id="results"></div>
   </div>
   <script>
-    const data = [
+    const blacklist = [
       { name: "QuinLanVos", btag: '#21473', info: "Ruine game" },
       { name: "Seraphiel", btag: '#21826', info: "Ruine game" },
       { name: "Wit", btag: '#none', info: "Ruine game" },
@@ -129,6 +129,8 @@
       { name: "dav022", btag: '#2558', info: "Sabotage" },
       { name: "Greshnik", btag: '#22388', info: "Ruine game, sabotage, flood" },
       { name: "parazzit", btag: '#2473', info: "Suspicious nickname" },
+      { name: "Arthuus", btag: '#none', info: "Ruine game, sabotage, left the game" },
+      { name: "NakedTauren", btag: '#2116', info: "Left the game, covard" },
 
       { name: "Nadweek", btag: '#2601', info: "ok" },
       { name: "avantipro", btag: '#2621', info: "founder bl-hots" },
@@ -141,7 +143,7 @@
       resultsDiv.innerHTML = "";
       if (!query) return;
       const lowerCaseQuery = query.toLowerCase();
-      const filteredData = data.filter((item) => {
+      const filteredData = blacklist.filter((item) => {
         // return (
         //   item.name.toLowerCase().includes(lowerCaseQuery) || 
         //   item.age.toString().includes(lowerCaseQuery)
