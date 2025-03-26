@@ -1,3 +1,6 @@
-add region-btn
+add region-btn (bl/party/strong players);
 
+region select
+
+rating system (and and how it worked)
 mention: status (green red yellow)
