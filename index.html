@@ -16,11 +16,13 @@
       text-align: center;
     }
     #searchInput {
-      width: 60%;
+      /* width: 60%; */
+      width: 92%;
       padding: 10px;
       font-size: 16px;
       margin-bottom: 20px;
-      border-radius: 8px;
+      /* border-radius: 8px; */
+      border-radius: 8px 0px 0px 8px;
       border: solid 1px #27daff;
     }
     #results { margin-top: 20px; }
@@ -84,8 +86,28 @@
       </div>
     </div>
 
-    <div style=" width: 100%;">
-      <input type="text" id="searchInput" placeholder="Nickname or battletag">
+    <div style=" width: 100%; 
+                 display: flex;
+                 flex-direction: row;
+                 justify-content: center;
+                 ">
+      <div style="width: 400px;">
+          <input type="text" id="searchInput" placeholder="Nickname or battletag">
+      </div>
+      <div>
+          <select style="background: linear-gradient(to left, #00f593, #b2ffe0);
+                          margin-left: -4px;
+                          height: 40px;
+                          width: 70px;
+                          border: solid 1px #27daff;
+                          padding: 8px; border-radius: 0px 8px 8px 0px;" 
+                          id="mySelect1">
+                    <option value="Option 4">ALL</option>
+                    <option value="Option 1">EU</option>
+                    <option value="Option 2">USA</option>
+                    <option value="Option 3">ASIA</option>
+          </select>
+      </div>
     </div>
 </div>
 

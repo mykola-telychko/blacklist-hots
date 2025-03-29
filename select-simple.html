@@ -7,14 +7,81 @@
 </head>
 <body>
 
-  <select id="mySelect">
-    <option value="Option 1">Option 1</option>
-    <option value="Option 2">Option 2</option>
-    <option value="Option 3">Option 3</option>
+  <select style="background-color: #00f593;
+                  height: 40px;
+                  width: 90px;
+                  padding: 8px; border-radius: 0px 8px 8px 0px;" 
+                  id="mySelect">
+    <option value="Option 1">EUROPE</option>
+    <option value="Option 2">USA</option>
+    <option value="Option 3">ASIA</option>
+  </select>
+
+  <select style="background-color: #6ef5c9;
+                  height: 40px;
+                  width: 90px;
+                  padding: 8px; border-radius: 0px 8px 8px 0px;" 
+                  id="mySelect">
+    <option value="Option 1">EUROPE</option>
+    <option value="Option 2">USA</option>
+    <option value="Option 3">ASIA</option>
+  </select>
+
+  <select style="background-color: #b2ffe0;
+                  height: 40px;
+                  width: 90px;
+                  padding: 8px; border-radius: 0px 8px 8px 0px;" 
+                  id="mySelect">
+    <option value="Option 1">EUROPE</option>
+    <option value="Option 2">USA</option>
+    <option value="Option 3">ASIA</option>
+  </select>
+
+  <select style="background: linear-gradient(to left, #00f593, #b2ffe0);
+                  height: 40px;
+                  width: 70px;
+                  padding: 8px; border-radius: 0px 8px 8px 0px;" 
+                  id="mySelect">
+    <option value="Option 1">EU</option>
+    <option value="Option 2">USA</option>
+    <option value="Option 3">ASIA</option>
+  </select>
+
+  <select style="background: linear-gradient(to left, #b2ffe0 , #00f593);
+                  height: 40px;
+                  width: 70px;
+                  padding: 8px; border-radius: 0px 8px 8px 0px;" 
+                  id="mySelect">
+    <option value="Option 1">EU</option>
+    <option value="Option 2">USA</option>
+    <option value="Option 3">ASIA</option>
+  </select>
+
+  <select style="background: linear-gradient(to left, #6ef5c9 , #00f593);
+                  height: 40px;
+                  width: 70px;
+                  padding: 8px; border-radius: 0px 8px 8px 0px;" 
+                  id="mySelect">
+    <option value="Option 1">EU</option>
+    <option value="Option 2">USA</option>
+    <option value="Option 3">ASIA</option>
+  </select>
+
+  <br>
+  <br>
+
+  <select style="background: linear-gradient(to left, #00f593, #6ef5c9);
+                  height: 40px;
+                  width: 70px;
+                  padding: 8px; border-radius: 0px 8px 8px 0px;" 
+                  id="mySelect1">
+    <option value="Option 1">EU</option>
+    <option value="Option 2">USA</option>
+    <option value="Option 3">ASIA</option>
   </select>
 
   <script>
-    document.getElementById("mySelect").addEventListener("change", function() {
+    document.getElementById("mySelect1").addEventListener("change", function() {
       console.log("Selected:", this.value);
     });
   </script>
