@@ -1,3 +1,4 @@
+- add no-repeat background 
 
 - region select logic
 
