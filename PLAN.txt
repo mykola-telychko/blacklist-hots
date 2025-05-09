@@ -1,4 +1,4 @@
-- add no-repeat background 
+- more smooth bg-gradient 
 
 - region select logic
 
