@@ -7,28 +7,17 @@
   <link rel="stylesheet" href="styles.css">
   <style>
     body {
-      /* font-family: Arial, sans-serif; */
       margin: 0;
       display: flex;
-      /* background: radial-gradient(circle, #d5b7ef, #6c28f5); */
-      /* background: linear-gradient(to right, #6c28f5, #d2a8f6, #6c28f5); */
       background: linear-gradient(to right, #ab5afc, #d2a8f6 50%, #b474f2);
-      /* background: linear-gradient(135deg, #6c28f5 100%, #b474f2 50%, #d2a8f6 100%); */
-
-      /* background-repeat: no-repeat; */
-      background-size: 100% 100%; /* Розтягуємо на всю площину */
       justify-content: center;
-      /* height: 100vh; */
       text-align: center;
     }
-
     #searchInput {
-      /* width: 60%; */
       width: 92%;
       padding: 10px;
       font-size: 16px;
       margin-bottom: 20px;
-      /* border-radius: 8px; */
       border-radius: 8px 0px 0px 8px;
       border: solid 1px #27daff;
     }
@@ -44,8 +33,6 @@
         font-size: larger;
     }
     .radial4 {
-      /* background: radial-gradient(circle, #b977f3, #6c28f5); */
-      /* background: radial-gradient(circle, #d5b7ef, #6c28f5); */
     }
     .neon-shadow1 {
         text-shadow: 0 0 5px #1b35c8, 0 0 10px #d0d2f7, 0 0 20px #1f5eff, 0 0 40px #244ff1;
@@ -55,11 +42,12 @@
       font-size: 48px;
       font-weight: bold;
       color: #fff;
-      /* margin: 20px 0; */
-      /* padding: 20px; */
-      /* background: #333; */
       border-radius: 10px;
-      /* display: inline-block; */
+    }
+    .user-count {
+      color: white;
+      font-size: 28px;
+      margin-top: 5px;
     }
   </style>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -69,56 +57,53 @@
     <div class="image-container">
       <img src="hots.png" alt="608x286 Placeholder Image">
     </div>
-    <div class="text-example neon-shadow1"><h4 style="color: white; margin: 0px;">BLACKLIST</h4> </div>
-
-    <!-- <h3>  about contacts / region /</h3> -->
-<div style="
-    height: 130px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 25px;
-    align-items: center;
-">
-    <div class="dropdown-container">
-      <div class="dropdown-text">About & Contacts</div>
-      <div class="dropdown-content">
-          <h4>Non official fan-service BL-HOTS</h4>
-          Hey everyone,
-          Sadly, our favorite game isn’t getting the support it deserves anymore. 
-          The reporting system is pretty much broken, and toxic players are running wild with no real consequences.
-           That’s why I put together this service to help you figure out who’s a solid teammate and who’s best avoided.
-          If you’ve got a clip showing an "awesome", "reliable" player, send it over along with their nickname. 
-          Let’s build a better community together! Email: avanti.dev.pro@gmail.com . Ukraine 2025
-      </div>
+    <div class="text-example neon-shadow1"><h4 style="color: white; margin: 0px;">BLACKLIST</h4></div>
+   
+    <div style="
+        height: 130px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 25px;
+        align-items: center;
+    ">
+        <div class="dropdown-container">
+           <div id="userCount" class="user-count neon-shadow1"></div>
+          <div class="dropdown-text">About & Contacts</div>
+          <div class="dropdown-content">
+              <h4>Non official fan-service BL-HOTS</h4>
+              Hey everyone,
+              Sadly, our favorite game isn’t getting the support it deserves anymore.
+              The reporting system is pretty much broken, and toxic players are running wild with no real consequences.
+              That’s why I put together this service to help you figure out who’s a solid teammate and who’s best avoided.
+              If you’ve got a clip showing an "awesome", "reliable" player, send it over along with their nickname.
+              Let’s build a better community together! Email: avanti.dev.pro@gmail.com . Ukraine 2025
+          </div>
+        </div>
+        <div style=" width: 100%;
+                     display: flex;
+                     flex-direction: row;
+                     justify-content: center;
+                     margin-top: 35px;
+                     ">
+          <div style="width: 340px;">
+              <input type="text" id="searchInput" placeholder="Nickname or battletag">
+          </div>
+          <div>
+              <select style="background: linear-gradient(to left, #00f593, #b2ffe0);
+                              margin-left: -4px;
+                              height: 40px;
+                              width: 70px;
+                              border: solid 1px #27daff;
+                              padding: 8px; border-radius: 0px 8px 8px 0px;"
+                              id="mySelect1">
+                        <option value="Option 4">ALL</option>
+                        <option value="Option 1">EU</option>
+                        <option value="Option 2">USA</option>
+                        <option value="Option 3">ASIA</option>
+              </select>
+          </div>
     </div>
-
-    <div style=" width: 100%; 
-                 display: flex;
-                 flex-direction: row;
-                 justify-content: center;
-                 ">
-      <div style="width: 340px;">
-          <input type="text" id="searchInput" placeholder="Nickname or battletag">
-      </div>
-      <div>
-          <select style="background: linear-gradient(to left, #00f593, #b2ffe0);
-                          margin-left: -4px;
-                          height: 40px;
-                          width: 70px;
-                          border: solid 1px #27daff;
-                          /* border: solid 1px #fc8357; */
-                          padding: 8px; border-radius: 0px 8px 8px 0px;" 
-                          id="mySelect1">
-                    <option value="Option 4">ALL</option>
-                    <option value="Option 1">EU</option>
-                    <option value="Option 2">USA</option>
-                    <option value="Option 3">ASIA</option>
-          </select>
-      </div>
-    </div>
-</div>
-
     <div id="results"></div>
   </div>
   <script>
@@ -257,24 +242,26 @@
       { name: "Goose", btag: '#24926', info: "sabotage, feeding", status: 2 },
       { name: "Jynx", btag: '#21651', info: "sabotage, feeding", status: 2 },
       { name: "GreyLich", btag: '#2106', info: "sabotage, afk", status: 2 },
-      
+      { name: "WaterFlood", btag: '#21665', info: "sabotage, afk", status: 2 },
+
       { name: "Nadweek", btag: '#2311', info: "pro", status: 0 },
       { name: "avantipro", btag: '#2194', info: "founder bl-hots, best Stukov in EU", status: 0 },
     ];
+
     const searchInput = document.getElementById("searchInput");
     const resultsDiv = document.getElementById("results");
-    
+    const userCountDiv = document.getElementById("userCount");
+
+    // Відображення кількості юзерів
+    userCountDiv.textContent = `Users: ${blacklist.length}`;
+
     function search(query) {
       resultsDiv.innerHTML = "";
       if (!query) return;
       const lowerCaseQuery = query.toLowerCase();
       const filteredData = blacklist.filter((item) => {
-        // return (
-        //   item.name.toLowerCase().includes(lowerCaseQuery) || 
-        //   item.age.toString().includes(lowerCaseQuery)
-        // );
         return (
-          item.name.toLowerCase().includes(lowerCaseQuery) || 
+          item.name.toLowerCase().includes(lowerCaseQuery) ||
           item.btag.toString().includes(lowerCaseQuery)
         );
       });
@@ -283,7 +270,7 @@
           const itemDiv = document.createElement("div");
           itemDiv.className = "item";
           itemDiv.innerHTML = `
-            <strong>Name: </strong> ${item.name} / 
+            <strong>Name: </strong> ${item.name} /
             <strong>BattleTag: </strong> ${item.btag}<br><br>
             <strong>Info: </strong> ${item.info}
             ${item.status === 0 ? "<strong style='font-size: xx-large;'> !!! </strong>" : ""}
@@ -293,15 +280,13 @@
           `;
           resultsDiv.appendChild(itemDiv);
         });
-          //  ${item.status === 1 ? <strong style="color: red;">"!"</strong> : "Blacklisted, but not active"}
-          // ${item.status === 1 ? "!!" : "Blacklisted, but not active"}
-
       } else {
         resultsDiv.innerHTML = "<div>Not Found</div>";
       }
     }
     searchInput.addEventListener("input", (event) => {
-      const query = event.target.value.trim(); search(query);
+      const query = event.target.value.trim();
+      search(query);
     });
   </script>
 </body>
