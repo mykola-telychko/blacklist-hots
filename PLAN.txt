@@ -1,5 +1,7 @@
 - more smooth bg-gradient 
 
+- click btn for check full list
+
 - region select logic
 
 3-star and rating system ( how it worked)
