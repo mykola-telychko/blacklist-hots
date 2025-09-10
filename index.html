@@ -46,8 +46,10 @@
     }
     .user-count {
       color: white;
-      font-size: 28px;
+      font-size: 30px;
       margin-top: 5px;
+      /* width: 190px; */
+      width: 260px;
     }
   </style>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -67,18 +69,30 @@
         padding: 25px;
         align-items: center;
     ">
-        <div class="dropdown-container">
-           <div id="userCount" class="user-count neon-shadow1"></div>
-          <div class="dropdown-text">About & Contacts</div>
-          <div class="dropdown-content">
-              <h4>Non official fan-service BL-HOTS</h4>
-              Hey everyone,
-              Sadly, our favorite game isn’t getting the support it deserves anymore.
-              The reporting system is pretty much broken, and toxic players are running wild with no real consequences.
-              That’s why I put together this service to help you figure out who’s a solid teammate and who’s best avoided.
-              If you’ve got a clip showing an "awesome", "reliable" player, send it over along with their nickname.
-              Let’s build a better community together! Email: avanti.dev.pro@gmail.com . Ukraine 2025
+        <div class="line" style="display: flex;   
+                                 width: 480px;
+                                 height: 40px;">
+
+          <div style="width: 80px;"> </div>
+
+          <div id="userCount" class="user-count neon-shadow1" style="margin-right: 20px;"></div>
+          <div style="width: 40px;"> </div>
+
+          <div id="showList" class="btnShAll" style="width: 128px;">Show All</div>
+
+          <div class="dropdown-container">
+            <div class="dropdown-text">About</div>
+            <div class="dropdown-content">
+                <h4>Non official fan-service BL-HOTS</h4>
+                Hey everyone,
+                Sadly, our favorite game isn’t getting the support it deserves anymore.
+                The reporting system is pretty much broken, and toxic players are running wild with no real consequences.
+                That’s why I put together this service to help you figure out who’s a solid teammate and who’s best avoided.
+                If you’ve got a clip showing an "awesome", "reliable" player, send it over along with their nickname.
+                Let’s build a better community together! Email: avanti.dev.pro@gmail.com . Ukraine 2025
+            </div>
           </div>
+
         </div>
         <div style=" width: 100%;
                      display: flex;
@@ -293,6 +307,30 @@
       const query = event.target.value.trim();
       search(query);
     });
+
+    // Знаходимо кнопку
+const showAllBtn = document.getElementById("showList");
+
+// Функція для показу всіх
+function showAll() {
+  resultsDiv.innerHTML = "";
+  blacklist.forEach((item) => {
+    const itemDiv = document.createElement("div");
+    itemDiv.className = "item";
+    itemDiv.innerHTML = `
+      <strong>Name: </strong> ${item.name} /
+      <strong>BattleTag: </strong> ${item.btag}<br><br>
+      <strong>Info: </strong> ${item.info}
+      ${item.status === 0 ? "<strong style='font-size: xx-large;'> !!! </strong>" : ""}
+      ${item.status === 1 ? "<strong style='font-size: xx-large;'><span style='color: #fc8357;'>!</span>!! </strong>" : ""}
+      ${item.status === 2 ? "<strong style='font-size: xx-large;'><span style='color: #fc8357;'>!!</span>! </strong>" : ""}
+      ${item.status === 3 ? "<strong style='font-size: xx-large;'><span style='color: #fc8357;'>!!!</span> </strong>" : ""}
+    `;
+    resultsDiv.appendChild(itemDiv);
+  });
+}
+showAllBtn.addEventListener("click", showAll);
+
   </script>
 </body>
 </html>
