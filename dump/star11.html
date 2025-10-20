@@ -1,150 +1,163 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Рейтинг з неоновими зірками</title>
-    <style>
-        body {
-            /* background: #0a192f; */
-            background: #1588ee;;
-            color: #e6f1ff;
-            font-family: 'Arial', sans-serif;
-            padding: 20px;
-        }
-        
-        h2 {
-            color: #64ffda;
-            margin-top: 30px;
-        }
-        
-        .rating {
-            display: inline-flex;
-            flex-direction: row-reverse;
-            justify-content: flex-end;
-        }
-        
-        .rating input {
-            display: none;
-        }
-        
-        .rating label {
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            margin: 0 5px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%234a5568"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>');
-            background-size: cover;
-            transition: all 0.3s ease;
-            filter: drop-shadow(0 0 2px rgba(255,255,255,0.2));
-        }
-        
-        .rating label:hover {
-            filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
-        }
-        
-        .rating input:checked ~ label,
-        .rating input:checked ~ label ~ label {
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>');
-            filter: drop-shadow(0 0 8px #64ffda) drop-shadow(0 0 12px rgba(100, 255, 218, 0.5));
-        }
-        
-        /* Стилі для статичного відображення */
-        .static-rating {
-            display: inline-flex;
-        }
-        
-        .static-rating .star {
-            width: 34px;
-            height: 34px;
-            /* margin: 0 5px; */
-            background-size: cover;
-            transition: all 0.3s ease;
-        }
-        
-        .static-rating .star.active {
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>');
-            filter: drop-shadow(0 0 8px #64ffda) drop-shadow(0 0 12px rgba(100, 255, 218, 0.5));
-            animation: neon-pulse 1.5s infinite alternate;
-        }
-        
-        .static-rating .star.inactive {
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%234a5568"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>');
-            filter: drop-shadow(0 0 2px rgba(255,255,255,0.2));
-        }
-        
-        @keyframes neon-pulse {
-            from {
-                filter: drop-shadow(0 0 5px #64ffda) drop-shadow(0 0 10px rgba(100, 255, 218, 0.3));
-            }
-            to {
-                filter: drop-shadow(0 0 10px #64ffda) drop-shadow(0 0 20px rgba(100, 255, 218, 0.6));
-            }
-        }
-    </style>
-</head>
-<body>
-    <h2>Інтерактивний рейтинг (можна вибирати)</h2>
-    <form class="rating">
-        <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 зірки"></label>
-        <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 зірки"></label>
-        <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 зірка"></label>
-    </form>
-    
-    <h2>Статичний рейтинг (тільки відображення)</h2>
-    <div id="staticRating1" class="static-rating" data-rating="0"></div><br>
-    <div id="staticRating2" class="static-rating" data-rating="1"></div><br>
-    <div id="staticRating3" class="static-rating" data-rating="2"></div><br>
-    <div id="staticRating4" class="static-rating" data-rating="3"></div>
-    
-    <script>
-        // Функція для ініціалізації статичного рейтингу
-        function initStaticRating() {
-            const staticRatings = document.querySelectorAll('.static-rating');
-            
-            staticRatings.forEach(ratingElement => {
-                const ratingValue = parseInt(ratingElement.getAttribute('data-rating'));
-                ratingElement.innerHTML = '';
-                
-                // Створюємо 3 зірки
-                for (let i = 1; i <= 3; i++) {
-                    const star = document.createElement('div');
-                    star.className = i <= ratingValue ? 'star active' : 'star inactive';
-                    ratingElement.appendChild(star);
-                }
-            });
-        }
-        
-        // Ініціалізація при завантаженні сторінки
-        window.addEventListener('DOMContentLoaded', () => {
-            initStaticRating();
-            
-            // Додаємо обробник подій для інтерактивного рейтингу
-            const ratingInputs = document.querySelectorAll('.rating input');
-            ratingInputs.forEach(input => {
-                input.addEventListener('change', (e) => {
-                    alert(`Ви обрали рейтинг: ${e.target.value}`);
-                });
-            });
-        });
-        
-        // Функція для оновлення статичного рейтингу
-        function updateRating(elementId, newRating) {
-            const ratingElement = document.getElementById(elementId);
-            if (ratingElement) {
-                ratingElement.setAttribute('data-rating', newRating);
-                
-                const stars = ratingElement.querySelectorAll('.star');
-                stars.forEach((star, index) => {
-                    star.className = index < newRating ? 'star active' : 'star inactive';
-                });
-            }
-        }
-        
-        // Приклад оновлення рейтингу через 3 секунди
-        setTimeout(() => {
-            updateRating('staticRating1', 2);
-        }, 3000);
-    </script>
-</body>
-</html>
+ const blacklist = [
+      { name: "QuinLanVos", btag: '#21473', info: "Ruine game", status: 1 },
+      { name: "Seraphiel", btag: '#21826', info: "Ruine game", status: 1 },
+      { name: "Wit", btag: '#none', info: "Ruine game", status: 1 },
+      { name: "Lack ", btag: '#21469', info: "Ruine game", status: 1 },
+      { name: "Lamber", btag: '#none', info: "Ruine game, sabotage", status: 1 },
+      { name: "Embling", btag: '#2601', info: "Ruine game, sabotage", status: 1 },
+      { name: "AvelNaitroud", btag: '#2515', info: "Ruine game, sabotage, flood", status: 1 },
+      { name: "MaryLy", btag: '#21384', info: "Ruine game, sabotage, flood", status: 1 },
+      { name: "jurasek", btag: '#2477', info: "Ruine game, sabotage, flood", status: 1 },
+      { name: "nuncho02", btag: '#2511', info: "Ruine game, sabotage, flood", status: 1 },
+      { name: "GianlukaKR", btag: '#2267', info: "Ruine game, sabotage, flood", status: 1 },
+      { name: "ДикийЗверь", btag: '#27212', info: "Ruine game, sabotage, flood", status: 1 },
+      { name: "Heifeng", btag: '#2504', info: "Ruine game, sabotage, flood", status: 1 },
+      { name: "Bratsel/Bretsel", btag: '#none', info: "Sabotage", status: 2 },
+      { name: "Boxter / Bexter", btag: '#none', info: "Sabotage", status: 2 },
+      { name: "Spike", btag: '#2923', info: "Sabotage", status: 2 },
+      { name: "СнежныйБарс", btag: '#21485', info: "Ruine game, sabotage, flood", status: 1 },
+      { name: "PIHA", btag: '#21834', info: "Ruine game, sabotage, flood", status: 1 },
+      { name: "Cristi", btag: '#2142', info: "Ruine game, sabotage, flood", status: 1 },
+      { name: "player", btag: '#223258', info: "Ruine game, sabotage, flood", status: 1 },
+      { name: "Shaded", btag: '#21409', info: "Ruine game, sabotage, flood", status: 1 },
+      { name: "Dat", btag: '#21752', info: "Swear words, flood", status: 1 },
+      { name: "Krypthos", btag: '#1843', info: "Suspicious", status: 1 },
+      { name: "Vorona", btag: '#none', info: "Sabotage", status: 1 },
+      { name: "Nefertari84", btag: '#2306', info: "Sabotage", status: 1 },
+      { name: "DrLotter", btag: '#2378', info: "Sabotage", status: 1 },
+      { name: "Dez", btag: '#2985', info: "Sabotage", status: 1 },
+      { name: "patatra", btag: '#2574', info: "Sabotage", status: 1 },
+      { name: "dorf74", btag: '#1527', info: "Sabotage", status: 1 },
+      { name: "Spaghetti", btag: '#21346', info: "Sabotage, Suspicious", status: 1 },
+      { name: "Texture", btag: '#2248', info: "Sabotage, Suspicious", status: 1 },
+      { name: "JamaGumi", btag: '#2550', info: "Sabotage", status: 1 },
+      { name: "SoulReaver", btag: '#21578', info: "Sabotage", status: 1 },
+      { name: "YaroslavZerg", btag: '#2508', info: "Sabotage", status: 1 },
+      { name: "dav022", btag: '#2558', info: "Sabotage", status: 1 },
+      { name: "Greshnik", btag: '#22388', info: "Ruine game, sabotage, flood", status: 2 },
+      { name: "parazzit", btag: '#2473', info: "Suspicious nickname", status: 1 },
+      { name: "Arthuus", btag: '#none', info: "Ruine game, sabotage, left the game", status: 1 },
+      { name: "NakedTauren", btag: '#2116', info: "Left the game, covard", status: 1 },
+      { name: "JustPlayer", btag: '#21151', info: "nazi shit", status: 2 },
+      { name: "МокрыйЯстреб", btag: '#2308', info: "Sabotage, admitted to taking drugs before the game, irresponsible", status: 1 },
+      { name: "ХмурыйКот", btag: '#210682', info: "nazi shit", status: 2 },
+      { name: "NeonMoose", btag: '#28970', info: "nazi shit", status: 2 },
+      { name: "ALEHOP", btag: '#none', info: "AFK", status: 1 },
+      { name: "Silk", btag: '#2485', info: "Ruine, afk, useless back to game from bot-mod", status: 1 },
+      { name: "MyteammonkaS", btag: '#1235', info: "useless typing, low skill, ignored important teamplay", status: 1 },
+      { name: "Thyrael", btag: '#none', info: "afk", status: 1 },
+      { name: "Abshizz", btag: '#2661', info: "Insults in chat", status: 1 },
+      { name: "PeiXe", btag: '#2128', info: "Valira strong", status: 1 },
+      { name: "Ashanti #2515 ", btag: '#1235', info: "Loves Saports and strong limin", status: 1 },
+      { name: "Vozmezdie", btag: '#none', info: "useless nazi shit", status: 2 },
+      { name: "WeauZ", btag: '#1235', info: "Suspicious nickname", status: 1 },
+      { name: "Hideloth", btag: '#2336', info: "390lvl nova keltas / 200 Nazibo", status: 1 },
+      { name: "CEZ", btag: '#none', info: "useless typing, ignored important teamplay and events", status: 1 },
+      { name: "NIK", btag: '#none', info: "useless typing, ignored important teamplay and events", status: 1 },
+      { name: "Sander", btag: '#none', info: "ruine, low skill, flood", status: 1 },
+      { name: "Сухробжон", btag: '#2791', info: "Sabotage", status: 1 },
+      { name: "LichKing", btag: '#23226', info: "useless typing, Sabotage", status: 1 },
+      { name: "Холла", btag: '#none', info: "nazi shit", status: 2 },
+      { name: "Haster", btag: '#none', info: "Sabotage", status: 1 },
+      { name: "kaldun", btag: '#none', info: "Suspicious", status: 1 },
+      { name: "kabooom", btag: '#21858', info: "afk", status: 1 },
+      { name: "volkanyrgc", btag: '#2712', info: "afk, ruine game", status: 1 },
+      { name: "RedOctober", btag: '#21447', info: "nazi shit", status: 2 },
+      { name: "Hubertgamer", btag: '#21121', info: "spam shit, low skill, ruine game", status: 1 },
+      { name: "Mario", btag: '#26128', info: "afk, ruine game", status: 1 },
+      { name: "BlueIce", btag: '#2481', info: "leave game, ruine", status: 1 },
+      { name: "MizulinaGod", btag: '#2735', info: "nazi shit", status: 2 },
+      { name: "Tolstoy", btag: '#2442', info: "nazi shit", status: 2 },
+      { name: "Szostyoss Szotyos", btag: '#none', info: "flood spam, useless", status: 1 },
+      { name: "TLOK", btag: '#2512', info: "leave game", status: 1 },
+      { name: "Spaincraft", btag: '#none', info: "leave game sabotage", status: 1 },
+      { name: "ddizzle104", btag: '#2245', info: "leave game sabotage", status: 1 },
+      { name: "GeVolper", btag: '#2369', info: "sabotage, flood spam, useless", status: 1 },
+      { name: "VVSAMBOOROFF", btag: '#2782', info: "spam, sabotage, leave game, useless", status: 1 },
+      { name: "NoHealNoPlay", btag: '#none', info: "leave game, useless", status: 1 },
+      { name: "XxdiblaxX", btag: '#2105', info: "spam, useless", status: 1 },
+      { name: "Morgenstern", btag: '#2485', info: "ruine, useless", status: 1 },
+      { name: "Girdzonix", btag: '#2340', info: "team", status: 1 },
+      { name: "Mrki", btag: '#21326', info: "team", status: 1 },
+      { name: "Luna", btag: '#24712', info: "team", status: 1 },
+      { name: "Dilema", btag: '#2506', info: "team", status: 1 },
+      { name: "Артас", btag: '#22922', info: "nazi shit", status: 2 },
+      { name: "Neico", btag: '#21117', info: "overtyping, spam", status: 1 },
+      { name: "RedArmy", btag: '#21536', info: "nazi", status: 1 },
+      { name: "Repka", btag: '#21327', info: "nazi", status: 1 },
+      { name: "Гировагу", btag: '#2431', info: "leave game", status: 1 },
+      { name: "ShadowDragon", btag: '#215941', info: "nazi", status: 1 },
+      { name: "Thadsalad-Tadsalad", btag: '#2506', info: "sabotage", status: 1 },
+      { name: "Njubi", btag: '#21427', info: "full game sabotage", status: 1 },
+      { name: "Avo", btag: '#2610', info: "sabotage", status: 1 },
+      { name: "Lanzet", btag: '#2370', info: "nazi shit", status: 2 },
+      { name: "Zen", btag: '#2711', info: "sabotage / nazi", status: 1 },
+      { name: "Antei", btag: '#3710', info: "sabotage", status: 1 },
+      { name: "NatiiQueen", btag: '#2607', info: "regular sabotage, full ignore game", status: 3 },
+      { name: "Wuushu", btag: '#1990', info: "sabotage, overtyping", status: 1 },
+      { name: "viko999", btag: '#2593', info: "stupid idiots overall typing", status: 1 },
+      { name: "Operator", btag: '#2752', info: "stupid . Useless typing", status: 1 },
+      { name: "Holymoses", btag: '#2645', info: "leave game", status: 1 },
+      { name: "lan ian", btag: '#22177', info: "sabotage", status: 1 },
+      { name: "Deadmeat", btag: '#21828', info: "leave game", status: 1 },
+      { name: "Sakura", btag: '#????', info: "sabotage", status: 1 },
+      { name: "Samos", btag: '#2802', info: "spam click", status: 1 },
+      { name: "belov1k", btag: '#1183', info: "leave game, ruine, afk", status: 1 },
+      { name: "володя", btag: '#21151', info: "leave game, ruine, afk", status: 1 },
+      { name: "Empty", btag: '#23854', info: "leave game, ruine, afk", status: 1 },
+      { name: "Perchik123", btag: '#2521', info: "leave game, ruine, afk", status: 1 },
+      { name: "Lyssa", btag: '#21111', info: "leave game, ruine, afk", status: 1 },
+      { name: "JohnHUNYADI", btag: '#2697', info: "leave game, ruine, afk", status: 1 },
+      { name: "JMRS", btag: '#21459', info: "leave game, ruine, afk", status: 1 },
+      { name: "Mitre", btag: '#21129', info: "leave game, ruine, afk", status: 1 },
+      { name: "mugen", btag: '#2250', info: "ruine, afk", status: 1 },
+      { name: "Trueform", btag: '#21363', info: "ruine team, Darzza228, Frankenstein", status: 1 },
+      { name: "Frankenstein", btag: '#21432', info: "ruine team, Trueform, Darzza228", status: 1 },
+      { name: "Darzza228", btag: '#2934', info: "ruine team, Frankenstein, Trueform", status: 1 },
+      { name: "Jotunnsson", btag: '#2359', info: "ruine", status: 1 },
+      { name: "WinDoFwar", btag: '#21609', info: "nazi shit", status: 1 },
+      { name: "CrunchyDroid", btag: '#2946', info: "left game , sabotage", status: 1 },
+      { name: "RussianGeran", btag: '#2440', info: "nazi shit", status: 3 },
+      { name: "volvix", btag: '#21603', info: "afk", status: 1 },
+      { name: "TankHealPlz", btag: '#2786', info: "nazi shit", status: 1 },
+      { name: "Похметолог", btag: '#none', info: "afk", status: 1 },
+      { name: "DrunkRu", btag: '#none', info: "afk, sabotage", status: 1 },
+      { name: "Fordring", btag: '#none', info: "ignore game, sabotage", status: 1 },
+      { name: "ThatGuy", btag: '#none', info: "ignore game, sabotage", status: 1 },
+      { name: "TracerBot", btag: '#2876', info: "afk, sabotage", status: 1 },
+      { name: "Dydertyk1", btag: '#2889', info: "afk, sabotage", status: 2 },
+      { name: "DaHamster", btag: '#2985', info: "sabotage", status: 1 },
+      { name: "Muropkt", btag: '#2166', info: "sabotage", status: 1 },
+      { name: "Elinara14", btag: '#2972', info: "sabotage", status: 1 },
+      { name: "qbq", btag: '#21630', info: "sabotage, abusive text", status: 2 },
+      { name: "Goose", btag: '#24926', info: "sabotage, feeding", status: 2 },
+      { name: "Jynx", btag: '#21651', info: "sabotage, feeding", status: 2 },
+      { name: "GreyLich", btag: '#2106', info: "sabotage, afk", status: 2 },
+      { name: "WaterFlood", btag: '#21665', info: "sabotage, afk", status: 2 },
+      { name: "Skazochniq", btag: '#none', info: "nazi shit", status: 2 },
+      { name: "Crisbrownie", btag: '#2131', info: "feeding", status: 2 },
+      { name: "Venom", btag: '#2355', info: "afk and ruine", status: 2 },
+      { name: "Svante", btag: '#21554', info: "afk and ruine", status: 2 },
+      { name: "Wihasy", btag: '#2255', info: "afk and ruine", status: 2 },
+      { name: "KawowyLisz", btag: '#2401', info: "afk and ruine", status: 2 },
+      { name: "AshXan", btag: '#none', info: "afk and ruine", status: 1 },
+      { name: "Nieth", btag: '#2481', info: "afk and ruine", status: 2 },
+      { name: "Kyler", btag: '#21715', info: "shit", status: 1 },
+      { name: "Gobbla", btag: '#2354', info: "afk and ruine", status: 2 },
+      { name: "unpapa", btag: '#1146', info: "afk and ruine", status: 1 },
+      { name: "NightKnight", btag: '#225835', info: "abusive text", status: 1 },
+      { name: "Viteokuss", btag: '#2526', info: "afk and ruine", status: 1 },
+      { name: "ParadOx", btag: '#21742', info: "afk", status: 1 },
+      { name: "DAHOKC", btag: '#2730', info: "afk", status: 2 },
+      { name: "LadyAnne", btag: '#none', info: "afk", status: 1 },
+      { name: "tvoykuzen", btag: '#none', info: "afk", status: 1 },
+      { name: "Danydino14", btag: '#2195', info: "full ignore team. selfish lili", status: 1 },
+      { name: "evlogly", btag: '#2905', info: "afk", status: 3 },
+      { name: "Mirtl", btag: '#21303?', info: "afk, ignore team, abusive text", status: 2 },
+      { name: "Fastes", btag: '#2149', info: "abusive text", status: 2 },
+      { name: "FalloutBoy", btag: '#21870', info: "afk", status: 1 },
+
+
+      { name: "Nadweek", btag: '#2311', info: "pro", status: 0 },
+      { name: "avantipro", btag: '#2194', info: "founder bl-hots, best Stukov in EU", status: 0 },
+    ];

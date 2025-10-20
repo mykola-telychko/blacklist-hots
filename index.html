@@ -4,122 +4,281 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BL-HOTS</title>
-  <link rel="stylesheet" href="styles.css">
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       margin: 0;
       display: flex;
       background: linear-gradient(to right, #ab5afc, #d2a8f6 50%, #b474f2);
       justify-content: center;
       text-align: center;
+      min-height: 100vh;
+      padding: 15px;
+      font-family: Arial, sans-serif;
     }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
+    }
+
     #searchInput {
-      width: 92%;
-      padding: 10px;
+      width: 100%;
+      padding: 12px;
       font-size: 16px;
-      margin-bottom: 20px;
-      border-radius: 8px 0px 0px 8px;
+      border-radius: 8px 0 0 8px;
       border: solid 1px #27daff;
+      background: white;
     }
-    #results { margin-top: 20px; }
+
+    #results { 
+      margin-top: 20px; 
+      width: 100%;
+    }
+
     .item {
-        background: #1588ee;
-        padding: 10px;
-        border: 1px solid #ccc;
-        margin-bottom: 10px;
-        border-radius: 5px;
-        color: white;
-        font-family: monospace;
-        font-size: larger;
+      background: #1588ee;
+      padding: 15px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      color: white;
+      font-family: monospace;
+      font-size: 16px;
+      text-align: left;
+      word-break: break-word;
     }
+
     .neon-shadow1 {
-        text-shadow: 0 0 5px #1b35c8, 0 0 10px #d0d2f7, 0 0 20px #1f5eff, 0 0 40px #244ff1;
+      text-shadow: 0 0 5px #1b35c8, 0 0 10px #d0d2f7, 0 0 20px #1f5eff, 0 0 40px #244ff1;
     }
-    .image-container img { max-width: 100%; height: auto; }
-    .text-example {
-      font-size: 48px;
+
+    .image-container img { 
+      max-width: 100%; 
+      height: auto;
+      max-width: 300px;
+    }
+
+    .header-title {
+      font-size: clamp(24px, 6vw, 48px);
       font-weight: bold;
       color: #fff;
       border-radius: 10px;
+      margin: 10px 0;
     }
+
     .user-count {
       color: white;
-      font-size: 30px;
-      margin-top: 5px;
-      /* width: 190px; */
-      width: 260px;
+      font-size: clamp(18px, 4vw, 30px);
+      margin: 5px 0;
+      text-align: center;
+    }
+
+    .top-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+
+    .search-container {
+      display: flex;
+      width: 100%;
+      margin: 20px 0;
+    }
+
+    .search-input-wrapper {
+      flex: 1;
+    }
+
+    .region-select {
+      background: linear-gradient(to left, #00f593, #b2ffe0);
+      height: 44px;
+      min-width: 70px;
+      border: solid 1px #27daff;
+      padding: 8px;
+      border-radius: 0 8px 8px 0;
+      font-size: 14px;
+    }
+
+    .btnShAll {
+      background: #1f5eff;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s;
+      white-space: nowrap;
+    }
+
+    .btnShAll:hover {
+      background: #1b35c8;
+    }
+
+    .dropdown-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-text {
+      background: #1f5eff;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s;
+      white-space: nowrap;
+    }
+
+    .dropdown-text:hover {
+      background: #1b35c8;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background: white;
+      color: #333;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 1000;
+      width: 300px;
+      max-width: 90vw;
+      font-size: 14px;
+      text-align: left;
+      line-height: 1.4;
+    }
+
+    .dropdown-container:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown-content h4 {
+      margin-bottom: 10px;
+      color: #1b35c8;
+    }
+
+    /* Адаптивні стилі */
+    @media (max-width: 768px) {
+      .top-controls {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .user-count {
+        order: -1;
+        width: 100%;
+      }
+
+      .search-container {
+        flex-direction: column;
+      }
+
+      #searchInput {
+        border-radius: 8px;
+        margin-bottom: 10px;
+      }
+
+      .region-select {
+        border-radius: 8px;
+        width: 100%;
+      }
+
+      .item {
+        font-size: 14px;
+        padding: 12px;
+      }
+
+      .btnShAll, .dropdown-text {
+        width: 100%;
+        text-align: center;
+      }
+
+      .dropdown-content {
+        right: auto;
+        left: 0;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+      
+      .container {
+        width: 100%;
+      }
+
+      .header-title {
+        font-size: 20px;
+      }
+
+      .user-count {
+        font-size: 16px;
+      }
     }
   </style>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
-<body >
-  <div>
+<body>
+  <div class="container">
     <div class="image-container">
-      <img src="hots.png" alt="608x286 Placeholder Image">
+      <img src="hots.png" alt="BL-HOTS Logo">
     </div>
-    <div class="text-example neon-shadow1"><h4 style="color: white; margin: 0px;">BLACKLIST</h4></div>
-   
-    <div style="
-        height: 130px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 25px;
-        align-items: center;
-    ">
-        <div class="line" style="display: flex;   
-                                 width: 480px;
-                                 height: 40px;">
+    
+    <div class="header-title neon-shadow1">
+      <h4 style="color: white; margin: 0;">BLACKLIST</h4>
+    </div>
 
-          <div style="width: 80px;"> </div>
-
-          <div id="userCount" class="user-count neon-shadow1" style="margin-right: 20px;"></div>
-          <div style="width: 40px;"> </div>
-
-          <div id="showList" class="btnShAll" style="width: 128px;">Show All</div>
-
-          <div class="dropdown-container">
-            <div class="dropdown-text">About</div>
-            <div class="dropdown-content">
-                <h4>Non official fan-service BL-HOTS</h4>
-                Hey everyone,
-                Sadly, our favorite game isn’t getting the support it deserves anymore.
-                The reporting system is pretty much broken, and toxic players are running wild with no real consequences.
-                That’s why I put together this service to help you figure out who’s a solid teammate and who’s best avoided.
-                If you’ve got a clip showing an "awesome", "reliable" player, send it over along with their nickname.
-                Let’s build a better community together! Email: avanti.dev.pro@gmail.com . Ukraine 2025
-            </div>
-          </div>
-
+    <div class="top-controls">
+      <div id="userCount" class="user-count neon-shadow1"></div>
+      <button id="showList" class="btnShAll">Show All</button>
+      <div class="dropdown-container">
+        <div class="dropdown-text">About</div>
+        <div class="dropdown-content">
+          <h4>Non official fan-service BL-HOTS</h4>
+          Hey everyone,<br><br>
+          Sadly, our favorite game isn't getting the support it deserves anymore.
+          The reporting system is pretty much broken, and toxic players are running wild with no real consequences.
+          That's why I put together this service to help you figure out who's a solid teammate and who's best avoided.
+          If you've got a clip showing an "awesome", "reliable" player, send it over along with their nickname.
+          Let's build a better community together!<br><br>
+          Email: avanti.dev.pro@gmail.com<br>
+          Ukraine 2025
         </div>
-        <div style=" width: 100%;
-                     display: flex;
-                     flex-direction: row;
-                     justify-content: center;
-                     margin-top: 35px;
-                     ">
-          <div style="width: 340px;">
-              <input type="text" id="searchInput" placeholder="Nickname or battletag">
-          </div>
-          <div>
-              <select style="background: linear-gradient(to left, #00f593, #b2ffe0);
-                              margin-left: -4px;
-                              height: 40px;
-                              width: 70px;
-                              border: solid 1px #27daff;
-                              padding: 8px; border-radius: 0px 8px 8px 0px;"
-                              id="mySelect1">
-                        <option value="Option 4">ALL</option>
-                        <option value="Option 1">EU</option>
-                        <option value="Option 2">USA</option>
-                        <option value="Option 3">ASIA</option>
-              </select>
-          </div>
+      </div>
     </div>
+
+    <div class="search-container">
+      <div class="search-input-wrapper">
+        <input type="text" id="searchInput" placeholder="Nickname or battletag">
+      </div>
+      <select class="region-select" id="mySelect1">
+        <option value="Option 4">ALL</option>
+        <option value="Option 1">EU</option>
+        <option value="Option 2">USA</option>
+        <option value="Option 3">ASIA</option>
+      </select>
+    </div>
+
     <div id="results"></div>
   </div>
+
   <script>
-    const blacklist = [
+ const blacklist = [
       { name: "QuinLanVos", btag: '#21473', info: "Ruine game", status: 1 },
       { name: "Seraphiel", btag: '#21826', info: "Ruine game", status: 1 },
       { name: "Wit", btag: '#none', info: "Ruine game", status: 1 },
@@ -286,13 +445,54 @@
     const searchInput = document.getElementById("searchInput");
     const resultsDiv = document.getElementById("results");
     const userCountDiv = document.getElementById("userCount");
+    const showAllBtn = document.getElementById("showList");
 
     // Відображення кількості юзерів
     userCountDiv.textContent = `Users: ${blacklist.length}`;
 
-    function search(query) {
+    function renderItems(items) {
       resultsDiv.innerHTML = "";
-      if (!query) return;
+      if (items.length === 0) {
+        resultsDiv.innerHTML = "<div class='item' style='text-align: center;'>Not Found</div>";
+        return;
+      }
+
+      items.forEach((item) => {
+        const itemDiv = document.createElement("div");
+        itemDiv.className = "item";
+        
+        let statusHTML = "";
+        switch(item.status) {
+          case 0:
+            statusHTML = "<strong style='font-size: xx-large;'> !!! </strong>";
+            break;
+          case 1:
+            statusHTML = "<strong style='font-size: xx-large;'><span style='color: #fc8357;'>!</span>!! </strong>";
+            break;
+          case 2:
+            statusHTML = "<strong style='font-size: xx-large;'><span style='color: #fc8357;'>!!</span>! </strong>";
+            break;
+          case 3:
+            statusHTML = "<strong style='font-size: xx-large;'><span style='color: #fc8357;'>!!!</span> </strong>";
+            break;
+        }
+
+        itemDiv.innerHTML = `
+          <strong>Name: </strong> ${item.name} /
+          <strong>BattleTag: </strong> ${item.btag}<br><br>
+          <strong>Info: </strong> ${item.info}
+          ${statusHTML}
+        `;
+        resultsDiv.appendChild(itemDiv);
+      });
+    }
+
+    function search(query) {
+      if (!query) {
+        resultsDiv.innerHTML = "";
+        return;
+      }
+      
       const lowerCaseQuery = query.toLowerCase();
       const filteredData = blacklist.filter((item) => {
         return (
@@ -300,53 +500,32 @@
           item.btag.toString().includes(lowerCaseQuery)
         );
       });
-      if (filteredData.length > 0) {
-        filteredData.forEach((item) => {
-          const itemDiv = document.createElement("div");
-          itemDiv.className = "item";
-          itemDiv.innerHTML = `
-            <strong>Name: </strong> ${item.name} /
-            <strong>BattleTag: </strong> ${item.btag}<br><br>
-            <strong>Info: </strong> ${item.info}
-            ${item.status === 0 ? "<strong style='font-size: xx-large;'> !!! </strong>" : ""}
-            ${item.status === 1 ? "<strong style='font-size: xx-large;'><span style='color: #fc8357;'>!</span>!! </strong>" : ""}
-            ${item.status === 2 ? "<strong style='font-size: xx-large;'><span style='color: #fc8357;'>!!</span>! </strong>" : ""}
-            ${item.status === 3 ? "<strong style='font-size: xx-large;'><span style='color: #fc8357;'>!!!</span> </strong>" : ""}
-          `;
-          resultsDiv.appendChild(itemDiv);
-        });
-      } else {
-        resultsDiv.innerHTML = "<div>Not Found</div>";
-      }
+      
+      renderItems(filteredData);
     }
+
+    function showAll() {
+      renderItems(blacklist);
+    }
+
+    // Обробники подій
     searchInput.addEventListener("input", (event) => {
       const query = event.target.value.trim();
       search(query);
     });
 
-    // Знаходимо кнопку
-const showAllBtn = document.getElementById("showList");
+    showAllBtn.addEventListener("click", showAll);
 
-// Функція для показу всіх
-function showAll() {
-  resultsDiv.innerHTML = "";
-  blacklist.forEach((item) => {
-    const itemDiv = document.createElement("div");
-    itemDiv.className = "item";
-    itemDiv.innerHTML = `
-      <strong>Name: </strong> ${item.name} /
-      <strong>BattleTag: </strong> ${item.btag}<br><br>
-      <strong>Info: </strong> ${item.info}
-      ${item.status === 0 ? "<strong style='font-size: xx-large;'> !!! </strong>" : ""}
-      ${item.status === 1 ? "<strong style='font-size: xx-large;'><span style='color: #fc8357;'>!</span>!! </strong>" : ""}
-      ${item.status === 2 ? "<strong style='font-size: xx-large;'><span style='color: #fc8357;'>!!</span>! </strong>" : ""}
-      ${item.status === 3 ? "<strong style='font-size: xx-large;'><span style='color: #fc8357;'>!!!</span> </strong>" : ""}
-    `;
-    resultsDiv.appendChild(itemDiv);
-  });
-}
-showAllBtn.addEventListener("click", showAll);
-
+    // Закриття dropdown при кліку поза ним
+    document.addEventListener('click', function(event) {
+      const dropdowns = document.querySelectorAll('.dropdown-container');
+      dropdowns.forEach(dropdown => {
+        if (!dropdown.contains(event.target)) {
+          const content = dropdown.querySelector('.dropdown-content');
+          if (content) content.style.display = 'none';
+        }
+      });
+    });
   </script>
 </body>
 </html>
