@@ -62,10 +62,15 @@
       text-shadow: 0 0 5px #1b35c8, 0 0 10px #d0d2f7, 0 0 20px #1f5eff, 0 0 40px #244ff1;
     }
 
-    .image-container img { 
-      max-width: 100%; 
+    .image-container {
+      display:flex;
+      justify-content:center;
+      margin-bottom: 12px;
+    }
+    .image-container img {
+      width: 100%;
       height: auto;
-      max-width: 300px;
+      max-width: 240px;
     }
 
     .header-title {
@@ -95,7 +100,7 @@
     .search-container {
       display: flex;
       width: 100%;
-      margin: 20px 0;
+      margin: 10px 0 20px 0;
     }
 
     .search-input-wrapper {
@@ -110,6 +115,14 @@
       padding: 8px;
       border-radius: 0 8px 8px 0;
       font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    /* Put select and show all into a compact control on narrow screens */
+    .controls-right {
+      display:flex;
+      gap:8px;
+      align-items:center;
     }
 
     .btnShAll {
@@ -177,6 +190,11 @@
 
     .dropdown-container:hover .dropdown-content {
       display: block;
+    }
+
+    /* Make dropdown openable on touch and small screens */
+    .dropdown-container.open .dropdown-content {
+      display:block;
     }
 
     .dropdown-content h4 {
@@ -277,8 +295,8 @@
       .dropdown-content {
         padding: 12px;
         font-size: 12px;
-        width: 100vw;
-        margin-left: -8px;
+        width: calc(100% - 16px);
+        margin-left: 0;
       }
     }
   </style>
@@ -296,8 +314,9 @@
 
     <div class="top-controls">
       <div id="userCount" class="user-count neon-shadow1"></div>
-      <button id="showList" class="btnShAll">Show All</button>
-      <div class="dropdown-container">
+      <div class="controls-right">
+        <button id="showList" class="btnShAll">Show All</button>
+        <div class="dropdown-container">
         <div class="dropdown-text">About</div>
         <div class="dropdown-content">
           <h4>Non official fan-service BL-HOTS</h4>
@@ -309,6 +328,7 @@
           Let's build a better community together!<br><br>
           Email: avanti.dev.pro@gmail.com<br>
           Ukraine 2025
+        </div>
         </div>
       </div>
     </div>
@@ -520,6 +540,8 @@
     const resultsDiv = document.getElementById("results");
     const userCountDiv = document.getElementById("userCount");
     const showAllBtn = document.getElementById("showList");
+    const dropdownContainers = document.querySelectorAll('.dropdown-container');
+    const dropdownTexts = document.querySelectorAll('.dropdown-text');
 
     // Відображення кількості юзерів
     userCountDiv.textContent = `Users: ${blacklist.length}`;
@@ -591,13 +613,32 @@
     showAllBtn.addEventListener("click", showAll);
 
     // Закриття dropdown при кліку поза ним
+    // Close dropdowns when clicking outside (desktop)
     document.addEventListener('click', function(event) {
-      const dropdowns = document.querySelectorAll('.dropdown-container');
-      dropdowns.forEach(dropdown => {
+      dropdownContainers.forEach(dropdown => {
         if (!dropdown.contains(event.target)) {
-          const content = dropdown.querySelector('.dropdown-content');
-          if (content) content.style.display = 'none';
+          dropdown.classList.remove('open');
         }
+      });
+    });
+
+    // Enable touch-friendly toggle for dropdowns
+    dropdownTexts.forEach(text => {
+      text.addEventListener('click', function(e) {
+        const parent = e.currentTarget.closest('.dropdown-container');
+        const alreadyOpen = parent.classList.contains('open');
+        // close others
+        dropdownContainers.forEach(d => d.classList.remove('open'));
+        if (!alreadyOpen) parent.classList.add('open');
+        e.stopPropagation();
+      });
+    });
+
+    // Prevent focus loss on small devices when interacting with dropdown
+    document.addEventListener('touchstart', function(e) {
+      // if touch is outside open dropdowns, close them
+      dropdownContainers.forEach(dropdown => {
+        if (!dropdown.contains(e.target)) dropdown.classList.remove('open');
       });
     });
   </script>
